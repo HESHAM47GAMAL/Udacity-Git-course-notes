@@ -1,0 +1,187 @@
+1.cd  -> move shell to home directory
+2.start . -> to open mohe directory in windows explorer
+3.mv used to rename  --> mv bash_profile .bash_profile
+4.git init ->> create new brand repositry on computer  --->> create file and go inside file and make git init
+5.git clone  ->> create copy existing repo from somewhere else to your local computer
+	git clone <link_to_repositry> --> create reposity in local computer with same name of repositry I make clone
+	git clone <link_to_repositry> "new_name_want_to_this_file_will_created"  --> create reposity in local computer with same name of repositry I make clone and rename it with new name
+6.git status ->> tell us status of this repositry if files add , modified , deleted
+7.git log ->> display information about existing commits
+ more info about log -> Display 1.SHA 2.author 3.date 4.message
+	to scroll down, press
+		j or ↓ to move down one line at a time
+		d to move by half the page screen
+		f to move by a whole page screen
+	to scroll up, press
+		k or ↑ to move up one line at a time
+		u to move by half the page screen
+		b to move by a whole page screen
+	press q to quit out of the log (returns to the regular command prompt)
+	
+	*if I want search about commit in log with "SHA" OR "ID" --> git log start_of_SHA
+	
+	USEING FLAGS🚩: 
+	1. --oneline
+		git log --oneline -->> used to display commits in one line as display part of SHA as every on is unique  --> display part of SHA (7 characters) and message only if all commits from same auther
+	2. --stat
+		git log --stat -->> used to display files that changed 
+	3. --grep
+		git log --grep="content_of_message"  -->> if I want search about commit in log with "Message"
+	4. --patch OR -p
+		git log  --patch -->> will display part of code removed and added 
+	5. -w 
+		git log -p -w -->> will show the patch information, but will not highlight lines where only whitespace changes have occurred.
+8.git show ->> display information about one commitment or last commit if not anything written next to it 
+	but if write ->> git show <SHA> --> will display info for this SHA
+	💡git show == git log -p but for one commit only	
+	💡can't use --grep
+9.git add -->> add files from "working directory" to "staging index"
+	9.1💡💡if I add wrong file in stage index can make "unstage" by -->>> git rm --cached "file_name" 
+	9.2 can add all files in "working directory "  to "stage index" by one line without tell files name  ---> git add . 
+10.git commit -->> take files from "staging index" and save them in "repository" --> which make commit
+	10.1git commit -->> this line lead to open favirote text editor that is setted by "git config --global core.editor <your-editor's-config-went-here>" and write message for this commit
+	10.2git commit -m "write message Here"
+11.git diff -->>display differencce between two versions of files -->>>> it like git log -p 
+	But this command used to see difference between files that not add to stage index -->> so it compare between last code saved in "working directory" and last version is made added to "stage index"
+
+12.💡💡Can make git ignore files to be tracked 
+	by --> create ".gitignore" file that ->>>write here file want git to ignore it 
+	# - marks line as a comment
+	* - matches 0 or more characters
+	? - matches 1 character
+	[abc] - matches a, b, or c
+	** - matches nested directories - a/**/z matches
+	a/z
+	a/b/z
+	a/b/c/z
+13.git tag --> used to give last commit Tag as make it special like you finish version 1 of program
+	git tag -a <tag_name> -m "message for this tag" -->>> here make tag with tag_name and message for last commit  , note -a is abbereviation for annotated
+	git tag -->> display all tags in this repo
+	git tag -d <tag_name> --> used to delete tag given 
+	git tag -a <tag_name> <commit_sha> -m "<tag_message>"
+🤯🤯💡💡 head --> is indicate to current or active branch
+14.git branch -->> will display all branches in repo 
+	git branch <branch_name> -->> will make new branch
+	git branch <branch_name> <commit_SHA>  -->> will branch at commit with SHA  Head not point current 
+	git branch -d <branch_name> --->> used to delete specefic branch
+	💡if used git branch -d <branch_name> --> this line won't work(delete branch) because I may be in this branch currently and if switch to master branch and run this line won't delete branch because may I make commit in this branch so git will not allow to delete brach
+		|
+		|
+		-----> SO ---> to delete it use ---> git branch -D <branch_name>
+ 	
+15.git checkout <branch_name> -->> this command will make head point to branch_name that make checkout to it
+	git checkout -b <new_branch> <branch_that_from_last_commit_will new_branch created>  -->this line combine to steps as create new branch and switch to this new one at same command and can tell from where branch existing can create this new branch
+	|
+	|
+	----> if remove <branch_that_from_last_commit_will new_branch created> this arguement -->> will create new branch from last commit on this current branch
+	
+16.git log --oneline --graph --all   -->>> will display all branches and commeted in order who branch from who
+⚠️ merge two branches make ---> make commit
+⚠️⚠git reset --hard HEAD^  --> used if want to make UNDO for merge happen or undo for last commit --->>> as HEAD^ refers to the parent commit of the current commit
+
+17.git merge <name-of-branch-to-merge-in> -->>this line used to merge two branch --->>so I need to give name of two branches want to merge so |
+																																			  |
+																																-------------- ------------------
+																																|								|
+																														current branch is 1st 			name-of-branch-to-merge-in is 2nd	
+	
+	
+										-------> Fast forward merge
+										|
+	there are two type of merge --------|	
+										|
+										--------> Regular merge
+										
+	
+	 
+		
+		inside () -> is comment message                         
+		*    *    * \    *     *  until here "Master branch "  \
+	  (C1)	(C2) (C3)\  (C4)  (C5)                              \
+					  \Branch called "sidebar"					 \Branch called "Footer"
+				       \*      *	  							  \	*
+					   (BC1)  (BC2)  							   (BC3)
+					   
+		
+		
+		
+		@ Fast forward merge  -> the branch being merged in must be ahead of the checked out branch. The checked out branch's pointer will just be moved forward to point to the same commit as the other branch.
+			💡here "Master" branch take message that given for "Footer" branch
+		if I in "Master" branch currently and want to merge "Footer" branch will happen "Fast forward merge"
+		as footer branch do at commit from master and master not make any another commits 
+		
+		@ Regular merge  -> 1.two divergent branches are combined   2.a merge commit is created
+			💡here you shoud give message for this merge 
+		if I in "Master" branch currently and want to merge "sidebar" branch will happen "Regular merge"
+		
+		
+18.Merge Conflict   --> when the same line or lines have been changed on different branches that are being merged.
+	|
+	|
+	----> Merge Conflict Indicators Explanation  --->>The editor has the following merge conflict indicators:
+		<<<<<<< HEAD everything below this line (until the next indicator) shows you what's on the current branch
+		||||||| merged common ancestors everything below this line (until the next indicator) shows you what the original lines were
+		======= is the end of the original lines, everything that follows (until the next indicator) is what's on the branch that's being merged in
+		>>>>>>> heading-update is the ending indicator of what's on the branch that's being merged in (in this case, the heading-update branch)
+		
+		|
+		|
+		--> SO , to solve this conflict You need to choose which of two lines make conflict or write another thing ---> then make add --> then  commit -->then merge happen and conflict solved✔️
+
+19.git commit --amend  --->this used in two cases 
+	case 1 : you want to edit message for last commit BY --> git commit --amend  --> will open window to edit message Or write git commit --amend -m "write message"
+	case 2 : make some changes missed as --> 1.edit files wanted 2.save 3.get stage 4.git commit --amend    --->this edit will attached to same last commit 
+	OR can do case 1 and 2 in Same time 
+20.git revert -->>used to revert in commit 
+	 git revert <SHA-of-commit-to-revert>
+		so this will revert commit that have SHA and this make commit for this revert
+21.git reset
+	⚠️⚠difference between "reset" and "revert"  -->revert make commit with this revert , but reset remove commit of SHA completely from repo
+		|
+		---> but not worry 🙆 can solve this by --> To alleviate the stress a bit, Git does keep track of everything for about 30 days before it completely erases anything. To access this content, you'll need to use the  --- > git reflog
+	
+	^ – indicates the parent commit
+	~ – indicates the first parent commit
+	the parent commit – the following indicate the parent commit of the current commit
+		HEAD^
+		HEAD~
+		HEAD~1
+	the grandparent commit – the following indicate the grandparent commit of the current commit
+		HEAD^^
+		HEAD~2
+	the grandparent commit – the following indicate the grandparent commit of the current commit
+		HEAD^^
+		HEAD~2
+		
+	💡💡The main difference between the ^ and the ~ is when a commit is created from a merge. A merge commit has two parents. With a merge commit, the ^ reference is used to indicate the first parent of the commit while ^2 indicates the second parent. The first parent is the branch you were on when you ran git merge while the second parent is the branch that was merged in
+	
+	
+	before next talking about flages for reset we know that repositry have 3sections(working directory , staging index , repository)   --> but now will know that there is section number four also called trash
+	
+	flags 🚩🚩🚩🚩🚩🚩
+		--mixed : and this is default as if I use reset without any flags implicitly wull used 
+			so this commit or this changes in files return to working directory ---> so if I make stage and commit --> will get same commit content that rested with different SHA
+		--soft 
+			so this commit or this changes in files return to stage index  --> so make commit -->will get same commit content that rested with different SHA
+		--hard
+			so this commit or this changes in files will though out Trash
+			
+22.git branch backup --> used to make back up
+
+
+
+💡💡💡💡💡💡 Remote Repo 💡💡💡💡💡💡
+
+1.git remote -v --> list remote repo 
+	git remote add origin <https_link_for_remote_repo>
+2.git push 
+	git push --set-upstream origin master:main
+	git push -u --force origin master  --> used to ignore in data will miss and push to remote repo
+	git push -u origin <local_branch_name>
+	
+3.if you make some update in remote Repo and want to 👀👀 Compare with local repo you should do :
+	3.1.get fetch origin (note --> origin instead of write name of default branch in remote repo)
+	3.2.git diff master origin/master  -->git diff <local_branch_name> <origin/remote_branch_name>
+	
+	
+		
