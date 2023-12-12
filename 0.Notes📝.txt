@@ -175,13 +175,21 @@
 1.git remote -v --> list remote repo 
 	git remote add origin <https_link_for_remote_repo>
 2.git push 
-	git push --set-upstream origin master:main
+	✔️✔️git push --set-upstream origin master:main  -->  git push --set-upstream origin <local_repo_branch_name>:<remote_repo_branch_name>
 	git push -u --force origin master  --> used to ignore in data will miss and push to remote repo
-	git push -u origin <local_branch_name>
+	git push -u origin <local_branch_name> --> git push -u <remote_repo_branch  like origin/master> <local_branch_name> 
+		git push origin --tags  ---> git push tags from local repo to remote repo 
 	
 3.if you make some update in remote Repo and want to 👀👀 Compare with local repo you should do :
 	3.1.get fetch origin (note --> origin instead of write name of default branch in remote repo)
 	3.2.git diff master origin/master  -->git diff <local_branch_name> <origin/remote_branch_name>
 	
 	
-		
+4.git branch --set-upstream-to=origin/master  --> used  sets the upstream branch for the current local branch to the remote branch named "origin/master"
+	git branch --set-upstream-to=origin/main master --> git branch --set-upstream-to=origin/<remote_repo_branch_name> <local_repo_branch_name>
+5.git pull  --> used to pull remote repo to local repo 
+	git pull origin master --> git pull <remote_repo_branch  like origin/master> <local_branch_name>
+	💡💡if in git pull Give you fetal merge due to merge unrelated histories
+		|
+		|git checkout <wanted_local_branch_to_make_in_it_merge>
+		---> so use this -->git pull origin <remote_branch_name> --allow-unrelated-histories
